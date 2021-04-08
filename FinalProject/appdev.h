@@ -7,7 +7,7 @@
 
 #define _CRT_SECURE_NO_WARNINGS
 #define N 20
-
+//added from VS
 typedef struct {
 	int max;
 	int min;
