@@ -1,0 +1,44 @@
+<!DOCTYPE>
+<html>
+<head>
+<title>APPDEV 2021</title>
+</head>
+<script>
+function getdata() {
+        fetch('http://www.cc.puv.fi/~e2000606/record.txt')
+                .then(r => r.text())
+                .then(data => dispdata(data))
+};
+function dispdata(d) {
+        var ctt = document.getElementById("data");
+        var can = document.getElementById("chart");
+        var ctx = can.getContext('2d');
+        ctx.lineWidth = 10; //set the line width of drawing
+        var lines = d.split("\n"); //split whole text into lines
+        var i = 0;
+        while(typeof lines[0]!="undefined") {
+                var line = lines.shift(); //take one line from lines
+                var split = line.split(' '); //split a line by ' '
+                ctt.innerHTML += line + "<br/>"; //write a line in <p>
+
+                ctx.strokeStyle = 'blue';
+                ctx.beginPath();
+                ctx.moveTo(i*50+10, 500 - 10);
+                ctx.lineTo(i*50+10, 500 - 10 - parseInt(split[2])*5); //draw min
+                ctx.stroke();
+
+                ctx.strokeStyle = 'violet';
+                ctx.beginPath();
+                ctx.moveTo(i*50+30, 500-10);
+                ctx.lineTo(i*50+30, 500-10-parseInt(split[3])*5); //draw max
+                ctx.stroke();
+
+                i++;
+        }
+}
+</script>
+<body onload=getdata()>
+<p id="data"></p>
+<canvas id="chart" height=500 width=1000 style="border:solid 1px green"></canvas>
+</body>
+</html>
